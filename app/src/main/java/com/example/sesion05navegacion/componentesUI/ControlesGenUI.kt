@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -15,8 +16,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.sesion05navegacion.modelos.Personas
 
@@ -33,20 +36,24 @@ fun BotonGenerico(texto:String,onclick:()->Unit){
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarra(titulo:String){
-    TopAppBar(title = { Text(text =titulo) })
+fun TopBarra(titulo:String, colorBarra:Color){
+    TopAppBar(title = { Text(text =titulo) }, colors =TopAppBarDefaults.topAppBarColors(
+            containerColor = colorBarra
+        )
+    )
 }
 
 @Composable
 fun ElementosLazy(personsa:Personas){
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly) {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(5.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFc0e1ff))) {
+        Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceEvenly) {
             Text(text =  "Nombre: ${personsa.nombres}")
             Text(text = "Apellido: ${personsa.apellidos}")
         }
-        Row (modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly){
+        Row (modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceEvenly){
             Text(text = "DNI ${personsa.dni}")
             Text(text = "FecNac: ${personsa.fecha}")
         }
@@ -57,5 +64,11 @@ fun ElementosLazy(personsa:Personas){
 fun BotonFlotante(onclick:()->Unit){
     FloatingActionButton(onClick = onclick) {
         Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+    }
+}
+@Composable
+fun TarjetaGeneica(modifier: Modifier, colorFondo: Color){
+    Card(modifier =modifier.fillMaxWidth(),colors = CardDefaults.cardColors(containerColor = colorFondo)) {
+
     }
 }

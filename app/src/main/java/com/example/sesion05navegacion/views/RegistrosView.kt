@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -41,7 +42,7 @@ fun RegistrosUI(navcontrolador: NavController){
     val contexto= LocalContext.current
 
     Scaffold(modifier = Modifier.fillMaxSize(),
-        topBar = { TopBarra(titulo = "APP Registros") }
+        topBar = { TopBarra(titulo = "APP Registros", colorBarra = Color(0xFFc1f1e0)) }
     ) {paddingX->
         Column(modifier = Modifier
             .padding(paddingX)

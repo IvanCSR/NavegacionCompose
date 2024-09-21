@@ -12,12 +12,12 @@ fun ManejadorNavegacion(){
 
     val navControlador= rememberNavController()
 
-    NavHost(navController = navControlador, startDestination = "Principal"){
+    NavHost(navController = navControlador, startDestination = ElementoNavegacion.Principal.ruta){
         //Definiendo rutas de navegacion
-        composable(route = "Principal"){
+        composable(route = ElementoNavegacion.Principal.ruta){
             PrincipalUI(navControlador)
         }
-        composable(route = "Registros"){
+        composable(route = ElementoNavegacion.Registros.ruta){
             RegistrosUI(navControlador)
         }
     }
