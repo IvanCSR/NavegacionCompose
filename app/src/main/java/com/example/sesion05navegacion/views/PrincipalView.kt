@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -23,6 +24,7 @@ import com.example.sesion05navegacion.componentesUI.BotonFlotante
 import com.example.sesion05navegacion.componentesUI.ElementosLazy
 import com.example.sesion05navegacion.componentesUI.TopBarra
 import com.example.sesion05navegacion.modelos.Personas
+import com.example.sesion05navegacion.navegacion.ElementoNavegacion
 
 val listaPersonas = mutableStateListOf<Personas>()
 
@@ -33,7 +35,7 @@ fun PrincipalUI(navcontrolador:NavController){
         floatingActionButton = {
             BotonFlotante{
                 //navegar a Registros
-                navcontrolador.navigate("Registros")
+                navcontrolador.navigate(ElementoNavegacion.Registros.ruta)
             }
         }
     ) {
@@ -47,8 +49,8 @@ fun PrincipalUI(navcontrolador:NavController){
 
             }
             LazyColumn {
-                items(listaPersonas) { it->
-                    ElementosLazy(personsa = it)
+                itemsIndexed(listaPersonas) { indice,elemento->
+                    ElementosLazy(personsa = elemento,indice)
                 }
             }
         }
