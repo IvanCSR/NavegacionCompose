@@ -4,5 +4,5 @@ data class Personas(
     val nombres:String,
     val apellidos:String,
     val dni:String,
-    val fecha:String
+    val estado:String
 )

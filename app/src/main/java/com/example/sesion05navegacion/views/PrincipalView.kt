@@ -14,13 +14,18 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sesion05navegacion.componentesUI.BotonFlotante
+import com.example.sesion05navegacion.componentesUI.DialogoPersonalizado
 import com.example.sesion05navegacion.componentesUI.ElementosLazy
 import com.example.sesion05navegacion.componentesUI.TopBarra
 import com.example.sesion05navegacion.modelos.Personas
@@ -46,13 +51,13 @@ fun PrincipalUI(navcontrolador:NavController){
                 Box(modifier=Modifier.fillMaxWidth(),contentAlignment = Alignment.Center) {
                     Text(text = "Listado de Registros", color = Color.White)
                 }
-
             }
             LazyColumn {
                 itemsIndexed(listaPersonas) { indice,elemento->
                     ElementosLazy(personsa = elemento,indice)
                 }
             }
+
         }
     }
 }
