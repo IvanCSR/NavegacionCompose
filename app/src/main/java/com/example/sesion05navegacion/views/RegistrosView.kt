@@ -1,6 +1,7 @@
 package com.example.sesion05navegacion.views
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,17 +28,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sesion05navegacion.componentesUI.BotonGenerico
 import com.example.sesion05navegacion.componentesUI.CajaTexoGenerico
+import com.example.sesion05navegacion.componentesUI.ComboBoxGenerico
 import com.example.sesion05navegacion.componentesUI.TopBarra
 import com.example.sesion05navegacion.modelos.Personas
 
 val listaEstadoCivil= listOf("Soltero","Casado","Divorciado")
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun RegistrosUI(navcontrolador: NavController){
+fun RegistrosUI(navcontrolador: NavController,nro:Int){
     //Variables de estado
     var nombres by remember { mutableStateOf("") }
     var apellidos by remember { mutableStateOf("") }
@@ -53,8 +57,8 @@ fun RegistrosUI(navcontrolador: NavController){
         Column(modifier = Modifier
             .padding(paddingX)
             .fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Box (modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-                Text(text = "Registrar Persona")
+            Box (modifier = Modifier.fillMaxWidth().padding(10.dp).background(Color(0xFFaac7ff)), contentAlignment = Alignment.Center){
+                Text(text = "Registrar Persona Nro: ${nro.toString()} ", fontSize = 20.sp)
             }
             CajaTexoGenerico(valor = nombres, label = "Nombres") {
                 nombres=it
@@ -66,20 +70,15 @@ fun RegistrosUI(navcontrolador: NavController){
                 dni=it
             }
            //MenuCombo
-            ExposedDropdownMenuBox(expanded = expandir, onExpandedChange ={expandir= !expandir} ) {
-                TextField(modifier = Modifier.menuAnchor(),value = textoSele, onValueChange = {textoSele=it},
-                    trailingIcon ={ ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandir)},
-                    readOnly = true
-                )
-                ExposedDropdownMenu(expanded = expandir, onDismissRequest = { expandir=false }) {
-                    listaEstadoCivil.forEach { elemento->
-                        DropdownMenuItem(text = { Text(text = elemento) },
-                            onClick = { textoSele=elemento;expandir=false },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding)
-                    }
-                }
+            ComboBoxGenerico(
+                lista = listaEstadoCivil,
+                textoSele = textoSele,
+                expansion = expandir,
+                onvalue = {textoSele=it},
+                onExpanded = {expandir=true},
+                onDismiss = { expandir=false }) {
+                textoSele=it;expandir=false
             }
-
             Row(modifier=Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 BotonGenerico(texto = "Aceptar", icono = Icons.Default.Done) {
                     if (nombres.isEmpty()||apellidos.isEmpty()||dni.isEmpty()||textoSele.isEmpty()){

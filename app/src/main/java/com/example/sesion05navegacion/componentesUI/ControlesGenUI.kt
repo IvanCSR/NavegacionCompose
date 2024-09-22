@@ -112,7 +112,7 @@ fun BotonFlotante(onclick:()->Unit){
 fun DialogoPersonalizado(visible:Boolean,cancelaAccion:()->Unit,aceptaAccion:()->Unit){
     if (visible){
         AlertDialog(
-            title = { Text(text = "Confirmacion de eliminacion")},
+            title = { Text(text = "Confirmacion")},
             text = { Text(text = "¿Desea Eliminar?")},
             onDismissRequest = { cancelaAccion()},
             confirmButton = {
@@ -121,7 +121,7 @@ fun DialogoPersonalizado(visible:Boolean,cancelaAccion:()->Unit,aceptaAccion:()-
                 }
             }, dismissButton ={
                 TextButton(onClick = { cancelaAccion() }) {
-                    Text(text = "Cancelar")
+                    Text(text = "Cancelar", color = Color.Red)
                 }
             }
         )
@@ -148,26 +148,25 @@ fun ListaOpciones(texto:String,lista:List<String>,onvalue:(String)->Unit){
         }
     }
 }*/
-/*
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComboBoxGenerico(textoSele:String,expansion:Boolean){
-    var expandir by remember { mutableStateOf(expansion) }
-    var textoSeleccion by remember { mutableStateOf(textoSele) }
-    ExposedDropdownMenuBox(expanded = expandir, onExpandedChange ={expandir= !expandir} ) {
-        TextField(modifier = Modifier.menuAnchor(),value = textoSeleccion, onValueChange = {textoSeleccion=it},
-            trailingIcon ={ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandir)},
-            readOnly = true
+fun ComboBoxGenerico(lista:List<String>,textoSele:String, expansion:Boolean, onvalue: (String) -> Unit,
+                     onExpanded:(Boolean)->Unit,onDismiss:()->Unit, onclick: (String) -> Unit){
+    ExposedDropdownMenuBox(expanded = expansion, onExpandedChange = onExpanded, modifier = Modifier.padding(5.dp)) {
+        TextField(modifier = Modifier.menuAnchor(),value = textoSele, onValueChange = onvalue,
+            trailingIcon ={ExposedDropdownMenuDefaults.TrailingIcon(expanded = expansion)},
+            readOnly = true, colors = ExposedDropdownMenuDefaults.textFieldColors()
         )
-        ExposedDropdownMenu(expanded = expandir, onDismissRequest = { expandir=false }) {
-            listaEstadoCivil.forEach { elemento->
+        ExposedDropdownMenu(expanded = expansion, onDismissRequest = onDismiss) {
+            lista.forEach { elemento->
                 DropdownMenuItem(text = { Text(text = elemento) },
-                    onClick = { textoSeleccion=elemento;expandir=false },
+                    onClick = {onclick(elemento)},
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding)
             }
         }
     }
-}*/
+}
 
 @Composable
 fun TarjetaGeneica(modifier: Modifier, colorFondo: Color){
@@ -175,3 +174,17 @@ fun TarjetaGeneica(modifier: Modifier, colorFondo: Color){
 
     }
 }
+/*
+            ExposedDropdownMenuBox(expanded = expandir, onExpandedChange ={expandir= !expandir} ) {
+                TextField(modifier = Modifier.menuAnchor(),value = textoSele, onValueChange = {textoSele=it},
+                    trailingIcon ={ ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandir)},
+                    readOnly = true
+                )
+                ExposedDropdownMenu(expanded = expandir, onDismissRequest = { expandir=false }) {
+                    listaEstadoCivil.forEach { elemento->
+                        DropdownMenuItem(text = { Text(text = elemento) },
+                            onClick = { textoSele=elemento;expandir=false },
+                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding)
+                    }
+                }
+            }*/

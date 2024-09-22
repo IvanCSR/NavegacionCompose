@@ -40,7 +40,7 @@ fun PrincipalUI(navcontrolador:NavController){
         floatingActionButton = {
             BotonFlotante{
                 //navegar a Registros
-                navcontrolador.navigate(ElementoNavegacion.Registros.ruta)
+                navcontrolador.navigate(ElementoNavegacion.Registros.ruta+"/${listaPersonas.size}")
             }
         }
     ) {
